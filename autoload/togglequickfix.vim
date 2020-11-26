@@ -71,6 +71,7 @@ fun! togglequickfix#Loop() "{{{
             if togglequickfix#Has('qf')
                 copen
             else
+                echom "No quick fix available"
                 continue
             endif
         else
@@ -81,6 +82,7 @@ fun! togglequickfix#Loop() "{{{
             if togglequickfix#Has('locl')
                 lopen
             else
+                echom "No location list available"
                 continue
             endif
         else
