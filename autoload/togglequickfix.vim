@@ -65,28 +65,41 @@ fun! togglequickfix#Loop() "{{{
         let status .= "x"
     endif
 
+    let available = 0
     while 1
         let status = s:sts[status]
         if status[0] == 'q'
             if togglequickfix#Has('qf')
+                let available = 1
                 copen
             else
-                echom "No quick fix available"
                 continue
             endif
         else
+            if togglequickfix#Has('qf') ==# 1
+                if available ==# 0
+                    let available = 1
+                endif
+            endif
             cclose
         endif
 
         if status[1] == 'l'
             if togglequickfix#Has('locl')
+                let available = 1
                 lopen
             else
-                echom "No location list available"
                 continue
             endif
         else
-            lclose
+            if togglequickfix#Has('locl') ==# 1
+                if available ==# 0
+                    let available = 1
+                endif
+            endif
+        endif
+        if available ==# 0
+            echo "Quick fix and location list are empty"
         endif
 
         break
