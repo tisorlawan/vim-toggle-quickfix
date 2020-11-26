@@ -99,7 +99,10 @@ fun! togglequickfix#Loop() "{{{
             endif
         endif
         if available ==# 0
+            execute 'normal! \<Esc>'
+            echohl ErrorMsg
             echo "Quick fix and location list are empty"
+            echohl None
         endif
 
         break
